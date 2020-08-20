@@ -498,8 +498,10 @@ function sanitizeHtml(html, options, _recursing) {
         }
         return;
       }
+      if (!options.skipCloseTag) {
+        result += '</' + name + '>';
+      }
 
-      result += '</' + name + '>';
       if (skip) {
         result = tempResult + escapeHtml(result);
         tempResult = '';
@@ -697,7 +699,8 @@ sanitizeHtml.defaults = {
   allowedSchemesByTag: {},
   allowedSchemesAppliedToAttributes: ['href', 'src', 'cite'],
   allowProtocolRelative: true,
-  enforceHtmlBoundary: false
+  enforceHtmlBoundary: false,
+  skipCloseTag: false
 };
 
 sanitizeHtml.simpleTransform = function(newTagName, newAttribs, merge) {
